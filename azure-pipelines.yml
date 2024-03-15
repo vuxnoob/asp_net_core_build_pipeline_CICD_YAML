@@ -46,23 +46,3 @@ steps:
     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: false
 
-stages:
-  - stage: DeployWebsite
-    displayName: 'Deploy website'        
-    pool:
-      vmImage: windows-latest
-    
-    jobs:    
-    - deployment: DeployWebsite
-      displayName: 'Deploy website'
-      environment: 'Production.DAVE'
-      strategy:
-       runOnce:
-         deploy:           
-          steps:
-          - checkout: none
-          
-          - download: 'buildPipeline'
-            name: 'DownloadBuildArtifacts'            
-            displayName: 'Download build artifacts'
-            artifact: 'AzureTestProject'
